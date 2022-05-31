@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
+
+    <title>KeepUpP</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/blog/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="static/bootstrap-4/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <link href="/static/home.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+          {% comment %} <div class="col-4 pt-1">
+            <a class="text-muted" href="#">Subscribe</a>
+          </div> {% endcomment %}
+          <div class="col-4 text-left">
+            <a class="blog-header-logo text-dark" href="#">KEEPUPP</a>
+          </div>
+          <div class="col-4 d-flex justify-content-end align-items-center">
+            {% comment %} <a class="text-muted" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
+            </a> {% endcomment %}
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" id="searchhome" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" id="searchbutton" type="submit">Search</button>
+              {% comment %} <a class="text-muted" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
+              </a> {% endcomment %}
+            </form>
+            <a class="btn btn-sm btn-outline-secondary" id="signup" href="./submit" title="Contribute">Submit</a>
+            <a class="btn btn-sm btn-outline-secondary" href="/logout" title="LOGOUT">Hi!! {{usern}}</a>
+          </div>
+        </div>
+      </header>
+
+      {% include "catlist.html" %}
+
+      <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+        <div class="col-md-12 px-0">
+          <h1 class="display-4 font-italic">{{pd.ptitle}}</h1>
+          <p class="lead my-3">{{pd.pcon|safe}}</p>
+          <p class="lead mb-0"><a href={%url 'articledisplay' pd.pcat pd.pid %} class="text-white font-weight-bold">Continue reading...</a></p>
+        </div>
+      </div>
+      <h2 class="font-italic" style="margin:30px 10px; color:green;">Latest:</h2>
+      <div class="row mb-2 border-bottom">
+        {% for r in rlist %}
+        <div class="col-md-6">
+          <div class="card flex-md-row mb-4 shadow-sm h-md-250" style="overflow:auto;">
+            <div class="card-body d-flex flex-column align-items-start">
+              <strong class="d-inline-block mb-2 text-primary">{{r.cat}}</strong>
+              <h4 class="mb-0 text-dark">
+                {{r.title}}
+              </h4>
+              <div class="mb-1 text-muted">{{r.date}}</div>
+              <p class="card-text mb-auto">{{r.con|safe}}</p>
+              <a href={% url 'articledisplay' r.cat r.id %}>Continue reading</a>
+            </div>
+            <img class="card-img-right flex-auto d-none d-lg-block" src="https://loremflickr.com/200/250/{{r.cat}}" alt="Card image cap">
+          </div>
+        </div>
+        {% endfor %}
+        
+      </div>
+      <h3 class="font-italic" style="margin:30px 10px; color:green;">For you:</h3>
+      <div class="row mb-2">
+        {% for s in slist %}
+        <div class="col-md-6">
+          <div class="card flex-md-row mb-4 shadow-sm h-md-250" style="overflow:auto;">
+            <div class="card-body d-flex flex-column align-items-start">
+              <strong class="d-inline-block mb-2 text-primary">{{s.cat}}</strong>
+              <h4 class="mb-0 text-dark">
+                {{s.title}}
+              </h4>
+              <div class="mb-1 text-muted">{{s.date}}</div>
+              <p class="card-text mb-auto">{{s.con|safe}}</p>
+              <a href={% url 'articledisplay' s.cat s.id %}>Continue reading</a>
+            </div>
+            <img class="card-img-right flex-auto d-none d-lg-block" src="https://loremflickr.com/200/250/{{s.cat}}" alt="Card image cap">
+          </div>
+        </div>
+        {% endfor %}
+        
+      </div>
+      <h4 class="font-italic">About</h4>
+      <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+    </div>
+
+   
+
+    <footer class="blog-footer">
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="static/bootstrap-4/assets/js/vendor/popper.min.js"></script>
+    <script src="static/bootstrap-4/dist/js/bootstrap.min.js"></script>
+    <script src="static/bootstrap-4/assets/js/vendor/holder.min.js"></script>
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
+  </body>
+</html>

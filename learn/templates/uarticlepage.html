@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
+
+    <title>KeepUpP</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/blog/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/bootstrap-4/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <link href="../static/home.css" rel="stylesheet">
+    <style>
+      a.rec{
+        font-size : 20px;
+        color : #343a40;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+          {% comment %} <div class="col-4 pt-1">
+            <a class="text-muted" href="#">Subscribe</a>
+          </div> {% endcomment %}
+          <div class="col-4 text-left">
+            <a class="blog-header-logo text-dark" href="../" title='Go to homepage'>KEEPUPP</a>
+          </div>
+          <div class="col-4 d-flex justify-content-end align-items-center">
+            {% comment %} <a class="text-muted" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
+            </a> {% endcomment %}
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" id="searchhome" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" id="searchbutton" type="submit">Search</button>
+              {% comment %} <a class="text-muted" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
+              </a> {% endcomment %}
+            </form>
+            <a class="btn btn-sm btn-outline-secondary" id="signup" href="../submit">Submit</a>
+            <a class="btn btn-sm btn-outline-secondary" href="../logout" title="LOGOUT">Hi!! {{usern}}</a>
+          </div>
+        </div>
+      </header>
+
+      {% include "catlist.html" %}
+
+      <main role="main" class="container">
+        <div class="row">
+          <div class="col-md-8 blog-main">
+  
+            <div class="blog-post">
+              <h2 class="blog-post-title">{{title}}</h2>  
+            <p class="blog-post-meta" >{{date}} by <a href="#">{{writer}}</a></p>
+
+           <div>{{content|safe}}</div>
+            </div><!-- /.blog-post -->
+  
+
+            <nav class="blog-pagination">
+              <form method="POST" action="">
+                {% csrf_token %}
+                <div style="margin: 0.25rem 0.125rem;">
+                  <input type="checkbox" class="btn-check" id="btn-check-outlined" {%if line == 1 %}checked value="0"{% else %}value="1"{% endif %}autocomplete="off" name="like" >
+                  <button type="submit" for="btn-check-outlined" class="btn btn-primary">{%if line == 1 %}Unlike{% else %}Like{% endif %}</button>
+                </div>
+              </form>
+              <div>Likes: {{likes}}</div>
+            </nav>
+
+        </div><!-- /.blog-main -->
+        
+        <aside class="col-md-4 blog-sidebar">
+          <div class="p-3">
+            <h4 class="font-italic">Read on</h4>
+            <ol class="list-unstyled mb-0">
+              
+              {%for p in alist %}
+            <li><div class="border-bottom" style="margin-bottom:20px;">
+              <a href={% url 'articledisplay' p.cat p.id %} class="rec">{{p.title}}</a>
+            </div></li>
+            {%endfor%}
+          
+            </ol>
+          </div>
+          <div class="p-3 mb-3 bg-light rounded">
+            <h4 class="font-italic">About</h4>
+            <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+          </div>
+
+        </aside><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+    <footer class="blog-footer">
+  
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../static/bootstrap-4/assets/js/vendor/popper.min.js"></script>
+    <script src="../static/bootstrap-4/dist/js/bootstrap.min.js"></script>
+    <script src="../static/bootstrap-4/assets/js/vendor/holder.min.js"></script>
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
+  </body>
+</html>
