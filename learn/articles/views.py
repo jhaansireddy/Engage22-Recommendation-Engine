@@ -54,7 +54,7 @@ def home(request):
     pd['pcon'] = popl.content.split('.')[0]
     pd['pcat'] = popl.cat.all()[0].name
     pd['pid'] = popl.id
-
+    #print(give_keywords(pd['ptitle']))
     rec = Articles.objects.exclude(id=pd['pid']).order_by('-pdate')[0:2]
     rlist =[]
     for i in range(0,2):
@@ -64,6 +64,7 @@ def home(request):
         d['cat'] = rec[i].cat.all()[0].name
         d['id'] = rec[i].id
         d['date'] = rec[i].pdate.strftime("%b") + " " + rec[i].pdate.strftime("%d")
+        #d['iurl'] = d['cat']+','+give_keywords(d['title'])
         rlist.append(d)
 
     if request.user.is_authenticated:
@@ -82,6 +83,8 @@ def home(request):
                 d['cat'] = a.cat.all()[0].name
                 d['id'] = a.id
                 d['date'] = a.pdate.strftime("%b") + " " + a.pdate.strftime("%d")
+                #d['iurl'] = d['cat']+','+give_keywords(d['title'])
+                #print(d['iurl'])
                 slist.append(d)
             if c==2:
                 break
